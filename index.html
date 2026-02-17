@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ricardo Rodríguez | Arquitectura, Integración & Backend</title>
+  <meta name="description" content="Arquitectura de soluciones, integración empresarial y backend. Experiencia en banca, gobierno y aeropuertos. .NET, Java, IBM App Connect, MQ." />
+  <meta name="theme-color" content="#0b1220" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root{
+      --bg: #020617; --bg2:#0b1220;
+      --card:#0b1220cc; --card2:#020617aa;
+      --border: rgba(148,163,184,.20);
+      --text:#e2e8f0; --muted:#94a3b8; --muted2:#cbd5e1;
+      --accent:#6366f1; --accent2:#818cf8;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      --gridA: rgba(99,102,241,.18);
+      --gridB: rgba(56,189,248,.14);
+      --gridC: rgba(168,85,247,.12);
+    }
+    [data-theme="light"]{
+      --bg: #f8fafc; --bg2:#ffffff;
+      --card:#ffffffcc; --card2:#ffffffb3;
+      --border: rgba(15,23,42,.12);
+      --text:#0f172a; --muted:#334155; --muted2:#475569;
+      --accent:#4f46e5; --accent2:#6366f1;
+      --shadow: 0 10px 30px rgba(2,6,23,.10);
+      --gridA: rgba(79,70,229,.12);
+      --gridB: rgba(2,132,199,.10);
+      --gridC: rgba(124,58,237,.10);
+    }
+
+    body{ background: var(--bg); color: var(--text); }
+    .glass{ backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .shadow-soft{ box-shadow: var(--shadow); }
+    .ring-soft{ box-shadow: 0 0 0 1px var(--border) inset; }
+    .border-soft{ border-color: var(--border); }
+    .grid-hero{
+      background:
+        radial-gradient(800px 400px at 20% 0%, var(--gridA), transparent 60%),
+        radial-gradient(800px 500px at 90% 30%, var(--gridB), transparent 60%),
+        radial-gradient(900px 500px at 30% 90%, var(--gridC), transparent 55%);
+    }
+    .muted{ color: var(--muted); }
+    .muted2{ color: var(--muted2); }
+    .card{ background: var(--card); }
+    .card2{ background: var(--card2); }
+    .btn-accent{ background: var(--accent); color: white; }
+    .btn-accent:hover{ background: var(--accent2); }
+    .chip{ background: color-mix(in srgb, var(--bg2) 70%, transparent); border: 1px solid var(--border); }
+    .devicon{ width: 28px; height: 28px; }
+  </style>
+</head>
+
+<body class="antialiased selection:bg-indigo-500/25 selection:text-white">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b border-soft bg-[color:var(--bg)]/70 glass">
+    <div class="mx-auto max-w-6xl px-4">
+      <nav class="flex items-center justify-between py-3">
+        <a href="#inicio" class="flex items-center gap-3">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl card ring-soft">
+            <span class="text-sm font-semibold tracking-tight">RR</span>
+          </span>
+          <span class="hidden sm:block text-sm font-semibold tracking-tight">rcdrguez.com</span>
+        </a>
+
+        <div class="hidden md:flex items-center gap-6 text-sm muted">
+          <a class="hover:opacity-90" href="#impacto" data-i18n="nav_impact">Impacto</a>
+          <a class="hover:opacity-90" href="#proyectos" data-i18n="nav_projects">Proyectos</a>
+          <a class="hover:opacity-90" href="#experiencia" data-i18n="nav_experience">Experiencia</a>
+          <a class="hover:opacity-90" href="#educacion" data-i18n="nav_education">Educación</a>
+          <a class="hover:opacity-90" href="#contacto" data-i18n="nav_contact">Contacto</a>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Language -->
+          <button id="btnLang" class="inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold card ring-soft" aria-label="Cambiar idioma">
+            <span id="langLabel">ES</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M2 5h7"/><path d="M6 2v3"/><path d="M5 10h4"/><path d="M14 4h8"/><path d="M15 8h7"/><path d="M16 12h6"/><path d="M18 16h4"/><path d="M10 20s2-2 2-5-2-5-2-5"/>
+            </svg>
+          </button>
+
+          <!-- Theme -->
+          <button id="btnTheme" class="inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold card ring-soft" aria-label="Cambiar tema">
+            <span id="themeLabel" data-i18n="theme_dark">Oscuro</span>
+            <svg id="iconMoon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+            </svg>
+            <svg id="iconSun" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-90 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"/><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/><path d="M4.22 19.78l1.42-1.42"/><path d="M18.36 5.64l1.42-1.42"/>
+            </svg>
+          </button>
+
+          <a href="CV-Ricardo-Rodriguez.pdf" class="hidden sm:inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold card ring-soft"
+             download data-i18n="btn_cv">
+            Descargar CV
+          </a>
+
+          <button id="btnMenu" class="md:hidden inline-flex items-center justify-center rounded-xl card p-2 ring-soft" aria-label="Abrir menú">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="4" y1="6" x2="20" y2="6" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="18" x2="20" y2="18" />
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile menu -->
+      <div id="mobileMenu" class="md:hidden hidden pb-4">
+        <div class="grid gap-2 rounded-2xl card p-3 ring-soft">
+          <a class="rounded-xl px-3 py-2 text-sm hover:opacity-90" href="#impacto" data-i18n="nav_impact">Impacto</a>
+          <a class="rounded-xl px-3 py-2 text-sm hover:opacity-90" href="#proyectos" data-i18n="nav_projects">Proyectos</a>
+          <a class="rounded-xl px-3 py-2 text-sm hover:opacity-90" href="#experiencia" data-i18n="nav_experience">Experiencia</a>
+          <a class="rounded-xl px-3 py-2 text-sm hover:opacity-90" href="#educacion" data-i18n="nav_education">Educación</a>
+          <a class="rounded-xl px-3 py-2 text-sm hover:opacity-90" href="#contacto" data-i18n="nav_contact">Contacto</a>
+          <a class="rounded-xl px-3 py-2 text-sm font-semibold btn-accent text-center" href="CV-Ricardo-Rodriguez.pdf" download data-i18n="btn_cv">Descargar CV</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="inicio" class="grid-hero">
+    <div class="mx-auto max-w-6xl px-4 pt-14 pb-10 sm:pt-20 sm:pb-14">
+      <div class="grid gap-10 lg:grid-cols-12 lg:items-center">
+        <div class="lg:col-span-7">
+          <p class="inline-flex items-center gap-2 rounded-full chip px-3 py-1 text-xs muted" data-i18n="hero_badge">
+            Arquitectura · Integración Empresarial · Operación 24/7
+          </p>
+
+          <h1 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+            Ricardo Rodríguez
+          </h1>
+
+          <p class="mt-4 text-lg leading-relaxed muted2" data-i18n="hero_subtitle">
+            Ingeniero de Software Senior / Arquitecto de Soluciones con 10+ años en aplicaciones empresariales.
+            Especializado en .NET, Java, IBM App Connect, MQ y sistemas distribuidos en entornos regulados.
+          </p>
+
+          <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+            <a href="#proyectos" class="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold btn-accent shadow-soft" data-i18n="btn_projects">
+              Ver proyectos
+            </a>
+            <a href="#contacto" class="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold card ring-soft" data-i18n="btn_contact">
+              Contacto
+            </a>
+          </div>
+
+          <!-- Tech icons -->
+          <div class="mt-8 rounded-3xl card p-5 ring-soft">
+            <p class="text-sm font-semibold" data-i18n="tech_title">Tecnologías principales</p>
+            <p class="mt-1 text-sm muted2" data-i18n="tech_sub">Lectura rápida para entender mi stack y mi foco.</p>
+
+            <div class="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-4">
+              <div class="flex items-center gap-2 rounded-2xl card2 p-3 ring-soft">
+                <img class="devicon" alt=".NET" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-plain.svg"/>
+                <span class="text-sm font-semibold">.NET</span>
+              </div>
+              <div class="flex items-center gap-2 rounded-2xl card2 p-3 ring-soft">
+                <img class="devicon" alt="C#" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-plain.svg"/>
+                <span class="text-sm font-semibold">C#</span>
+              </div>
+              <div class="flex items-center gap-2 rounded-2xl card2 p-3 ring-soft">
+                <img class="devicon" alt="Java" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-plain.svg"/>
+                <span class="text-sm font-semibold">Java</span>
+              </div>
+              <div class="flex items-center gap-2 rounded-2xl card2 p-3 ring-soft">
+                <img class="devicon" alt="JavaScript" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg"/>
+                <span class="text-sm font-semibold">JS</span>
+              </div>
+              <div class="flex items-center gap-2 rounded-2xl card2 p-3 ring-soft">
+                <img class="devicon" alt="Oracle" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg"/>
+                <span class="text-sm font-semibold">Oracle</span>
+              </div>
+              <div class="flex items-center gap-2 rounded-2xl card2 p-3 ring-soft">
+                <img class="devicon" alt="SQL Server" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg"/>
+                <span class="text-sm font-semibold">SQL</span>
+              </div>
+              <div class="flex items-center gap-2 rounded-2xl card2 p-3 ring-soft">
+                <img class="devicon" alt="Docker" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-plain.svg"/>
+                <span class="text-sm font-semibold">Docker</span>
+              </div>
+              <div class="flex items-center gap-2 rounded-2xl card2 p-3 ring-soft">
+                <img class="devicon" alt="Git" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-plain.svg"/>
+                <span class="text-sm font-semibold">Git</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="rounded-full chip px-3 py-1 text-xs muted">IBM App Connect</span>
+              <span class="rounded-full chip px-3 py-1 text-xs muted" data-i18n="chip_mq">Mensajería (MQ)</span>
+              <span class="rounded-full chip px-3 py-1 text-xs muted">Clean Architecture</span>
+              <span class="rounded-full chip px-3 py-1 text-xs muted">CQRS</span>
+              <span class="rounded-full chip px-3 py-1 text-xs muted" data-i18n="chip_dist">Sistemas distribuidos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="rounded-3xl card p-6 ring-soft shadow-soft">
+            <p class="text-sm font-semibold" data-i18n="summary_title">Resumen</p>
+            <p class="mt-2 text-sm leading-relaxed muted2" data-i18n="summary_body">
+              Experiencia en banca, gobierno y aeropuertos, trabajando con integración empresarial, mensajería y backend.
+              Enfocado en construir soluciones estables, trazables y mantenibles para operación crítica.
+            </p>
+
+            <div class="mt-5 grid gap-3">
+              <div class="rounded-2xl card2 p-4 ring-soft">
+                <p class="text-xs muted" data-i18n="summary_1_k">Fortalezas</p>
+                <p class="mt-1 text-sm font-semibold" data-i18n="summary_1_v">Integración · Arquitectura · Operación</p>
+              </div>
+              <div class="rounded-2xl card2 p-4 ring-soft">
+                <p class="text-xs muted" data-i18n="summary_2_k">Industrias</p>
+                <p class="mt-1 text-sm font-semibold" data-i18n="summary_2_v">Banca · Gobierno · Aeropuertos</p>
+              </div>
+              <div class="rounded-2xl card2 p-4 ring-soft">
+                <p class="text-xs muted" data-i18n="summary_3_k">Idiomas</p>
+                <p class="mt-1 text-sm font-semibold" data-i18n="summary_3_v">Español (nativo) · Inglés (profesional)</p>
+              </div>
+            </div>
+
+            <div class="mt-6 flex items-center justify-between gap-3 text-sm">
+              <a class="font-semibold hover:underline" href="https://www.linkedin.com/in/ricardo-rodriguez-02a4a670/" target="_blank" rel="noreferrer">LinkedIn →</a>
+              <a class="font-semibold hover:underline" href="mailto:r.rodriguezreyes@outlook.com">Email →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact -->
+  <section id="impacto" class="border-t border-soft">
+    <div class="mx-auto max-w-6xl px-4 py-14">
+      <h2 class="text-2xl font-semibold tracking-tight" data-i18n="impact_title">Impacto</h2>
+      <p class="mt-2 muted2" data-i18n="impact_sub">Lo que aporto cuando el proyecto es crítico y hay que hacerlo bien.</p>
+
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-3xl card p-6 ring-soft">
+          <p class="text-sm font-semibold" data-i18n="impact_1_t">Integraciones críticas</p>
+          <p class="mt-2 text-sm muted2" data-i18n="impact_1_b">Orquestación, contratos claros, manejo de errores y trazabilidad.</p>
+        </div>
+        <div class="rounded-3xl card p-6 ring-soft">
+          <p class="text-sm font-semibold" data-i18n="impact_2_t">Arquitectura mantenible</p>
+          <p class="mt-2 text-sm muted2" data-i18n="impact_2_b">Patrones, estándares, y estructuras que el equipo entiende y opera.</p>
+        </div>
+        <div class="rounded-3xl card p-6 ring-soft">
+          <p class="text-sm font-semibold" data-i18n="impact_3_t">Operación 24/7</p>
+          <p class="mt-2 text-sm muted2" data-i18n="impact_3_b">Observabilidad, soporte a incidentes y continuidad operativa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="proyectos" class="border-t border-soft">
+    <div class="mx-auto max-w-6xl px-4 py-14">
+      <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight" data-i18n="projects_title">Proyectos destacados</h2>
+          <p class="mt-2 muted2" data-i18n="projects_sub">Selección de iniciativas relevantes (enfocadas en integración y sistemas críticos).</p>
+        </div>
+        <a href="CV-Ricardo-Rodriguez.pdf" download class="mt-3 inline-flex w-fit items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold card ring-soft" data-i18n="btn_cv">
+          Descargar CV
+        </a>
+      </div>
+
+      <div class="mt-8 grid gap-4 lg:grid-cols-2">
+        <article class="rounded-3xl card p-6 ring-soft">
+          <p class="text-sm font-semibold" data-i18n="proj_1_t">Migración de Middleware & Canales Electrónicos (Service Bus)</p>
+          <p class="mt-2 text-sm muted2" data-i18n="proj_1_b">Migración y desarrollo de servicios/APIs hacia un Service Bus con IBM App Connect y MQ, priorizando seguridad, estabilidad y trazabilidad.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="rounded-full chip px-3 py-1 text-xs muted">IBM App Connect</span>
+            <span class="rounded-full chip px-3 py-1 text-xs muted">MQ</span>
+            <span class="rounded-full chip px-3 py-1 text-xs muted">APIs</span>
+          </div>
+        </article>
+
+        <article class="rounded-3xl card p-6 ring-soft">
+          <p class="text-sm font-semibold" data-i18n="proj_2_t">Onboarding Digital</p>
+          <p class="mt-2 text-sm muted2" data-i18n="proj_2_b">APIs e integraciones para procesos de apertura digital (cuentas, tarjetas, préstamos y certificados) con validaciones y orquestación.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="rounded-full chip px-3 py-1 text-xs muted">Integración</span>
+            <span class="rounded-full chip px-3 py-1 text-xs muted">Orquestación</span>
+            <span class="rounded-full chip px-3 py-1 text-xs muted">IBM App Connect</span>
+          </div>
+        </article>
+
+        <article class="rounded-3xl card p-6 ring-soft">
+          <p class="text-sm font-semibold" data-i18n="proj_3_t">Facturación Electrónica Nacional</p>
+          <p class="mt-2 text-sm muted2" data-i18n="proj_3_b">Participación como developer senior en una iniciativa nacional, colaborando en levantamiento técnico y diseño para escalabilidad y disponibilidad.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="rounded-full chip px-3 py-1 text-xs muted">.NET</span>
+            <span class="rounded-full chip px-3 py-1 text-xs muted" data-i18n="tag_scale">Escalabilidad</span>
+            <span class="rounded-full chip px-3 py-1 text-xs muted" data-i18n="tag_avail">Disponibilidad</span>
+          </div>
+        </article>
+
+        <article class="rounded-3xl card p-6 ring-soft">
+          <p class="text-sm font-semibold" data-i18n="proj_4_t">Sistemas Críticos Aeropuertos (FIDS + Control de Accesos)</p>
+          <p class="mt-2 text-sm muted2" data-i18n="proj_4_b">Desarrollo de sistemas de información de vuelos (FIDS) y soluciones de control de accesos/IDs bajo estándares de alta seguridad.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="rounded-full chip px-3 py-1 text-xs muted">.NET</span>
+            <span class="rounded-full chip px-3 py-1 text-xs muted">SQL Server</span>
+            <span class="rounded-full chip px-3 py-1 text-xs muted" data-i18n="tag_24">24/7</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experiencia" class="border-t border-soft">
+    <div class="mx-auto max-w-6xl px-4 py-14">
+      <h2 class="text-2xl font-semibold tracking-tight" data-i18n="exp_title">Experiencia</h2>
+      <p class="mt-2 muted2" data-i18n="exp_sub">Roles y enfoque (resumen claro, sin exagerar).</p>
+
+      <div class="mt-8 grid gap-4">
+        <div class="rounded-3xl card p-6 ring-soft">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p class="text-sm font-semibold" data-i18n="exp_1_role">Ingeniero de Software Senior — Banco Santa Cruz</p>
+              <p class="text-sm muted" data-i18n="exp_1_time">Jul 2020 — Presente</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="rounded-full chip px-3 py-1 text-xs muted">IBM App Connect</span>
+              <span class="rounded-full chip px-3 py-1 text-xs muted">MQ</span>
+              <span class="rounded-full chip px-3 py-1 text-xs muted">Oracle</span>
+              <span class="rounded-full chip px-3 py-1 text-xs muted">.NET</span>
+            </div>
+          </div>
+          <ul class="mt-4 space-y-2 text-sm muted2">
+            <li data-i18n="exp_1_b1">• Integraciones y orquestación con IBM App Connect (JavaCompute) y colas MQ.</li>
+            <li data-i18n="exp_1_b2">• APIs/microservicios en .NET con estándares y patrones (arquitectura limpia, CQRS).</li>
+            <li data-i18n="exp_1_b3">• Soporte a incidentes y mejoras para operación crítica.</li>
+          </ul>
+        </div>
+
+        <div class="rounded-3xl card p-6 ring-soft">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p class="text-sm font-semibold" data-i18n="exp_2_role">Ingeniero de Software Senior — DGII</p>
+              <p class="text-sm muted" data-i18n="exp_2_time">Dic 2019 — Jul 2020</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="rounded-full chip px-3 py-1 text-xs muted">.NET</span>
+              <span class="rounded-full chip px-3 py-1 text-xs muted" data-i18n="tag_tax">Tributario</span>
+            </div>
+          </div>
+          <ul class="mt-4 space-y-2 text-sm muted2">
+            <li data-i18n="exp_2_b1">• Developer senior en Facturación Electrónica Nacional.</li>
+            <li data-i18n="exp_2_b2">• Participación en levantamiento técnico y diseño de componentes.</li>
+          </ul>
+        </div>
+
+        <div class="rounded-3xl card p-6 ring-soft">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p class="text-sm font-semibold" data-i18n="exp_3_role">Analista de Desarrollo — Aerodom (VINCI Airports)</p>
+              <p class="text-sm muted" data-i18n="exp_3_time">Oct 2016 — Dic 2019</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="rounded-full chip px-3 py-1 text-xs muted">.NET</span>
+              <span class="rounded-full chip px-3 py-1 text-xs muted">SQL Server</span>
+              <span class="rounded-full chip px-3 py-1 text-xs muted">Power BI</span>
+            </div>
+          </div>
+          <ul class="mt-4 space-y-2 text-sm muted2">
+            <li data-i18n="exp_3_b1">• Desarrollo de FIDS (información de vuelos) para aeropuertos dominicanos.</li>
+            <li data-i18n="exp_3_b2">• Sistemas de control de accesos/IDs y dashboards financieros.</li>
+          </ul>
+        </div>
+
+        <details class="rounded-3xl card p-6 ring-soft">
+          <summary class="cursor-pointer text-sm font-semibold" data-i18n="exp_more">Ver más experiencia</summary>
+          <div class="mt-4 grid gap-4">
+            <div class="rounded-2xl card2 p-4 ring-soft">
+              <p class="text-sm font-semibold" data-i18n="exp_m1_role">Tech Lead / Full Stack — Glad International</p>
+              <p class="text-sm muted" data-i18n="exp_m1_time">Ene 2024 — Jul 2025</p>
+              <p class="mt-2 text-sm muted2" data-i18n="exp_m1_desc">Liderazgo de un sistema SaaS con módulos CXP/CXC y facturación; backend .NET Core y frontend React; APIs y reportes.</p>
+            </div>
+            <div class="rounded-2xl card2 p-4 ring-soft">
+              <p class="text-sm font-semibold" data-i18n="exp_m2_role">Líder de Proyecto — Clancar (Startup)</p>
+              <p class="text-sm muted" data-i18n="exp_m2_time">Ago 2021 — Abr 2022</p>
+              <p class="mt-2 text-sm muted2" data-i18n="exp_m2_desc">Definición de arquitectura, coordinación de equipo y delivery bajo metodologías ágiles.</p>
+            </div>
+            <div class="rounded-2xl card2 p-4 ring-soft">
+              <p class="text-sm font-semibold" data-i18n="exp_m3_role">Analista de Desarrollo — AMHSA</p>
+              <p class="text-sm muted" data-i18n="exp_m3_time">Ago 2014 — Sep 2016</p>
+              <p class="mt-2 text-sm muted2" data-i18n="exp_m3_desc">Sistemas empresariales y automatización de procesos en hotelería.</p>
+            </div>
+            <div class="rounded-2xl card2 p-4 ring-soft">
+              <p class="text-sm font-semibold" data-i18n="exp_m4_role">Instructor — CONIN</p>
+              <p class="text-sm muted" data-i18n="exp_m4_time">Ene 2019 — Jul 2019</p>
+              <p class="mt-2 text-sm muted2" data-i18n="exp_m4_desc">Docencia en Power BI y C# (materiales, clases y seguimiento).</p>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="educacion" class="border-t border-soft">
+    <div class="mx-auto max-w-6xl px-4 py-14">
+      <h2 class="text-2xl font-semibold tracking-tight" data-i18n="edu_title">Educación & Certificaciones</h2>
+      <p class="mt-2 muted2" data-i18n="edu_sub">Formación formal + cursos clave orientados a integración y datos.</p>
+
+      <div class="mt-8 grid gap-4 lg:grid-cols-3">
+        <div class="rounded-3xl card p-6 ring-soft">
+          <p class="text-sm font-semibold" data-i18n="edu_1_t">Educación</p>
+          <p class="mt-3 text-sm muted2" data-i18n="edu_1_b">Ingeniero en Desarrollo de Software — Universidad APEC (República Dominicana)</p>
+        </div>
+
+        <div class="rounded-3xl card p-6 ring-soft">
+          <p class="text-sm font-semibold" data-i18n="edu_2_t">Certificaciones</p>
+          <ul class="mt-3 space-y-2 text-sm muted2">
+            <li data-i18n="edu_2_1">• Microsoft MTA — Software Development Fundamentals</li>
+            <li data-i18n="edu_2_2">• Microsoft (edX) — DAT207x: Analyzing & Visualizing Data with Power BI</li>
+          </ul>
+        </div>
+
+        <div class="rounded-3xl card p-6 ring-soft">
+          <p class="text-sm font-semibold" data-i18n="edu_3_t">Cursos relevantes</p>
+          <ul class="mt-3 space-y-2 text-sm muted2">
+            <li data-i18n="edu_3_1">• IBM App Connect Enterprise 12 Application Development (GBM)</li>
+            <li data-i18n="edu_3_2">• Create, Secure & Publish APIs with IBM API Connect 10 (GBM)</li>
+            <li data-i18n="edu_3_3">• Diplomados ITLA: Java, Java Web, C#, Oracle</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contacto" class="border-t border-soft">
+    <div class="mx-auto max-w-6xl px-4 py-14">
+      <div class="grid gap-8 lg:grid-cols-12 lg:items-center">
+        <div class="lg:col-span-7">
+          <h2 class="text-2xl font-semibold tracking-tight" data-i18n="contact_title">Contacto</h2>
+          <p class="mt-2 muted2" data-i18n="contact_sub">Si quieres hablar de un rol o proyecto, escríbeme.</p>
+
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+            <a href="mailto:r.rodriguezreyes@outlook.com" class="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold btn-accent shadow-soft" data-i18n="contact_email">
+              Escribirme por email
+            </a>
+            <button id="btnCopyEmail" class="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold card ring-soft" data-i18n="contact_copy">
+              Copiar email
+            </button>
+          </div>
+
+          <div class="mt-6 text-sm muted2">
+            <p><span class="muted" data-i18n="label_email">Email:</span> <span class="font-semibold">r.rodriguezreyes@outlook.com</span></p>
+            <p class="mt-1"><span class="muted">LinkedIn:</span> <a class="font-semibold hover:underline" href="https://www.linkedin.com/in/ricardo-rodriguez-02a4a670/" target="_blank" rel="noreferrer">/ricardo-rodriguez-02a4a670</a></p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="rounded-3xl card p-6 ring-soft">
+            <p class="text-sm font-semibold" data-i18n="available_title">Disponible para</p>
+            <ul class="mt-3 space-y-2 text-sm muted2">
+              <li data-i18n="available_1">• Roles Senior/Lead orientados a backend e integración</li>
+              <li data-i18n="available_2">• Arquitectura de servicios y modernización de middleware</li>
+              <li data-i18n="available_3">• Proyectos con operación crítica y compliance</li>
+            </ul>
+            <div class="mt-6 rounded-2xl card2 p-4 ring-soft">
+              <p class="text-xs muted" data-i18n="download_quick">Descarga rápida</p>
+              <a class="mt-1 inline-flex items-center gap-2 text-sm font-semibold hover:underline" href="CV-Ricardo-Rodriguez.pdf" download data-i18n="btn_cv">
+                Descargar CV
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="mt-12 flex flex-col gap-3 border-t border-soft pt-6 text-xs muted sm:flex-row sm:items-center sm:justify-between">
+        <p>© <span id="year"></span> Ricardo Rodríguez · rcdrguez.com</p>
+        <p data-i18n="footer_note">HTML + Tailwind + JS · ES/EN · Tema claro/oscuro.</p>
+      </footer>
+    </div>
+  </section>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-5 left-1/2 hidden -translate-x-1/2 rounded-2xl card px-4 py-3 text-sm ring-soft shadow-soft">Copiado.</div>
+
+  <script>
+    const I18N = {
+      es: {
+        nav_impact:"Impacto", nav_projects:"Proyectos", nav_experience:"Experiencia", nav_education:"Educación", nav_contact:"Contacto",
+        hero_badge:"Arquitectura · Integración Empresarial · Operación 24/7",
+        hero_subtitle:"Ingeniero de Software Senior / Arquitecto de Soluciones con 10+ años en aplicaciones empresariales. Especializado en .NET, Java, IBM App Connect, MQ y sistemas distribuidos en entornos regulados.",
+        btn_projects:"Ver proyectos", btn_contact:"Contacto",
+        tech_title:"Tecnologías principales", tech_sub:"Lectura rápida para entender mi stack y mi foco.",
+        chip_mq:"Mensajería (MQ)", chip_dist:"Sistemas distribuidos",
+        summary_title:"Resumen",
+        summary_body:"Experiencia en banca, gobierno y aeropuertos, trabajando con integración empresarial, mensajería y backend. Enfocado en construir soluciones estables, trazables y mantenibles para operación crítica.",
+        summary_1_k:"Fortalezas", summary_1_v:"Integración · Arquitectura · Operación",
+        summary_2_k:"Industrias", summary_2_v:"Banca · Gobierno · Aeropuertos",
+        summary_3_k:"Idiomas", summary_3_v:"Español (nativo) · Inglés (profesional)",
+        impact_title:"Impacto", impact_sub:"Lo que aporto cuando el proyecto es crítico y hay que hacerlo bien.",
+        impact_1_t:"Integraciones críticas", impact_1_b:"Orquestación, contratos claros, manejo de errores y trazabilidad.",
+        impact_2_t:"Arquitectura mantenible", impact_2_b:"Patrones, estándares, y estructuras que el equipo entiende y opera.",
+        impact_3_t:"Operación 24/7", impact_3_b:"Observabilidad, soporte a incidentes y continuidad operativa.",
+        projects_title:"Proyectos destacados", projects_sub:"Selección de iniciativas relevantes (enfocadas en integración y sistemas críticos).",
+        proj_1_t:"Migración de Middleware & Canales Electrónicos (Service Bus)",
+        proj_1_b:"Migración y desarrollo de servicios/APIs hacia un Service Bus con IBM App Connect y MQ, priorizando seguridad, estabilidad y trazabilidad.",
+        proj_2_t:"Onboarding Digital",
+        proj_2_b:"APIs e integraciones para procesos de apertura digital (cuentas, tarjetas, préstamos y certificados) con validaciones y orquestación.",
+        proj_3_t:"Facturación Electrónica Nacional",
+        proj_3_b:"Participación como developer senior en una iniciativa nacional, colaborando en levantamiento técnico y diseño para escalabilidad y disponibilidad.",
+        proj_4_t:"Sistemas Críticos Aeropuertos (FIDS + Control de Accesos)",
+        proj_4_b:"Desarrollo de sistemas de información de vuelos (FIDS) y soluciones de control de accesos/IDs bajo estándares de alta seguridad.",
+        tag_scale:"Escalabilidad", tag_avail:"Disponibilidad", tag_24:"24/7", tag_tax:"Tributario",
+        exp_title:"Experiencia", exp_sub:"Roles y enfoque (resumen claro, sin exagerar).",
+        exp_1_role:"Ingeniero de Software Senior — Banco Santa Cruz", exp_1_time:"Jul 2020 — Presente",
+        exp_1_b1:"• Integraciones y orquestación con IBM App Connect (JavaCompute) y colas MQ.",
+        exp_1_b2:"• APIs/microservicios en .NET con estándares y patrones (arquitectura limpia, CQRS).",
+        exp_1_b3:"• Soporte a incidentes y mejoras para operación crítica.",
+        exp_2_role:"Ingeniero de Software Senior — DGII", exp_2_time:"Dic 2019 — Jul 2020",
+        exp_2_b1:"• Developer senior en Facturación Electrónica Nacional.",
+        exp_2_b2:"• Participación en levantamiento técnico y diseño de componentes.",
+        exp_3_role:"Analista de Desarrollo — Aerodom (VINCI Airports)", exp_3_time:"Oct 2016 — Dic 2019",
+        exp_3_b1:"• Desarrollo de FIDS (información de vuelos) para aeropuertos dominicanos.",
+        exp_3_b2:"• Sistemas de control de accesos/IDs y dashboards financieros.",
+        exp_more:"Ver más experiencia",
+        exp_m1_role:"Tech Lead / Full Stack — Glad International", exp_m1_time:"Ene 2024 — Jul 2025", exp_m1_desc:"Liderazgo de un sistema SaaS con módulos CXP/CXC y facturación; backend .NET Core y frontend React; APIs y reportes.",
+        exp_m2_role:"Líder de Proyecto — Clancar (Startup)", exp_m2_time:"Ago 2021 — Abr 2022", exp_m2_desc:"Definición de arquitectura, coordinación de equipo y delivery bajo metodologías ágiles.",
+        exp_m3_role:"Analista de Desarrollo — AMHSA", exp_m3_time:"Ago 2014 — Sep 2016", exp_m3_desc:"Sistemas empresariales y automatización de procesos en hotelería.",
+        exp_m4_role:"Instructor — CONIN", exp_m4_time:"Ene 2019 — Jul 2019", exp_m4_desc:"Docencia en Power BI y C# (materiales, clases y seguimiento).",
+        edu_title:"Educación & Certificaciones", edu_sub:"Formación formal + cursos clave orientados a integración y datos.",
+        edu_1_t:"Educación", edu_1_b:"Ingeniero en Desarrollo de Software — Universidad APEC (República Dominicana)",
+        edu_2_t:"Certificaciones", edu_2_1:"• Microsoft MTA — Software Development Fundamentals", edu_2_2:"• Microsoft (edX) — DAT207x: Analyzing & Visualizing Data with Power BI",
+        edu_3_t:"Cursos relevantes", edu_3_1:"• IBM App Connect Enterprise 12 Application Development (GBM)", edu_3_2:"• Create, Secure & Publish APIs with IBM API Connect 10 (GBM)", edu_3_3:"• Diplomados ITLA: Java, Java Web, C#, Oracle",
+        contact_title:"Contacto", contact_sub:"Si quieres hablar de un rol o proyecto, escríbeme.", contact_email:"Escribirme por email", contact_copy:"Copiar email",
+        label_email:"Email:",
+        available_title:"Disponible para", available_1:"• Roles Senior/Lead orientados a backend e integración", available_2:"• Arquitectura de servicios y modernización de middleware", available_3:"• Proyectos con operación crítica y compliance",
+        download_quick:"Descarga rápida", btn_cv:"Descargar CV",
+        footer_note:"HTML + Tailwind + JS · ES/EN · Tema claro/oscuro.",
+        theme_dark:"Oscuro", theme_light:"Claro",
+        toast_copied:"Email copiado ✔"
+      },
+      en: {
+        nav_impact:"Impact", nav_projects:"Projects", nav_experience:"Experience", nav_education:"Education", nav_contact:"Contact",
+        hero_badge:"Architecture · Enterprise Integration · 24/7 Operations",
+        hero_subtitle:"Senior Software Engineer / Solution Architect with 10+ years in enterprise applications. Focused on .NET, Java, IBM App Connect, MQ, and distributed systems in regulated environments.",
+        btn_projects:"View projects", btn_contact:"Contact",
+        tech_title:"Core technologies", tech_sub:"Quick scan to understand my stack and focus.",
+        chip_mq:"Messaging (MQ)", chip_dist:"Distributed systems",
+        summary_title:"Summary",
+        summary_body:"Experience across banking, government, and airport systems—working on enterprise integration, messaging, and backend. Focused on stable, traceable, maintainable solutions for critical operations.",
+        summary_1_k:"Strengths", summary_1_v:"Integration · Architecture · Operations",
+        summary_2_k:"Industries", summary_2_v:"Banking · Government · Airports",
+        summary_3_k:"Languages", summary_3_v:"Spanish (native) · English (professional)",
+        impact_title:"Impact", impact_sub:"What I bring when the project is critical and needs to be done right.",
+        impact_1_t:"Critical integrations", impact_1_b:"Orchestration, clear contracts, production-grade error handling and traceability.",
+        impact_2_t:"Maintainable architecture", impact_2_b:"Patterns, standards, and structures teams can understand and operate.",
+        impact_3_t:"24/7 operations", impact_3_b:"Observability, incident support, and operational continuity.",
+        projects_title:"Selected projects", projects_sub:"Highlights focused on integration and critical systems.",
+        proj_1_t:"Middleware & Digital Channels Migration (Service Bus)",
+        proj_1_b:"Migration and development of services/APIs into a Service Bus using IBM App Connect and MQ, prioritizing security, stability, and traceability.",
+        proj_2_t:"Digital Onboarding",
+        proj_2_b:"APIs and integrations for digital onboarding flows (accounts, cards, loans, and certificates) with validations and orchestration.",
+        proj_3_t:"National E-Invoicing Platform",
+        proj_3_b:"Worked as a senior developer on a national initiative, supporting technical discovery and design for scalability and availability.",
+        proj_4_t:"Critical Airport Systems (FIDS + Access Control)",
+        proj_4_b:"Built flight information systems (FIDS) and access/ID control solutions under high-security standards.",
+        tag_scale:"Scalability", tag_avail:"Availability", tag_24:"24/7", tag_tax:"Tax",
+        exp_title:"Experience", exp_sub:"Roles and scope (clear, no fluff).",
+        exp_1_role:"Senior Software Engineer — Banco Santa Cruz", exp_1_time:"Jul 2020 — Present",
+        exp_1_b1:"• Integrations and orchestration with IBM App Connect (JavaCompute) and MQ queues.",
+        exp_1_b2:"• APIs/microservices in .NET with standards and patterns (clean architecture, CQRS).",
+        exp_1_b3:"• Incident support and improvements for critical operations.",
+        exp_2_role:"Senior Software Engineer — DGII", exp_2_time:"Dec 2019 — Jul 2020",
+        exp_2_b1:"• Senior developer on the National E-Invoicing initiative.",
+        exp_2_b2:"• Contributed to technical discovery and component design.",
+        exp_3_role:"Software Development Analyst — Aerodom (VINCI Airports)", exp_3_time:"Oct 2016 — Dec 2019",
+        exp_3_b1:"• Built FIDS (flight information) for Dominican airports.",
+        exp_3_b2:"• Access/ID control systems and financial dashboards.",
+        exp_more:"See more experience",
+        exp_m1_role:"Tech Lead / Full Stack — Glad International", exp_m1_time:"Jan 2024 — Jul 2025", exp_m1_desc:"Led a SaaS system with AP/AR and invoicing modules; .NET backend and React frontend; APIs and reporting.",
+        exp_m2_role:"Project Lead — Clancar (Startup)", exp_m2_time:"Aug 2021 — Apr 2022", exp_m2_desc:"Architecture definition, team coordination, and agile delivery.",
+        exp_m3_role:"Software Development Analyst — AMHSA", exp_m3_time:"Aug 2014 — Sep 2016", exp_m3_desc:"Enterprise systems and process automation in hospitality.",
+        exp_m4_role:"Instructor — CONIN", exp_m4_time:"Jan 2019 — Jul 2019", exp_m4_desc:"Taught Power BI and C# (materials, classes, and mentoring).",
+        edu_title:"Education & Certifications", edu_sub:"Formal education plus key courses focused on integration and data.",
+        edu_1_t:"Education", edu_1_b:"B.Sc. in Software Development Engineering — Universidad APEC (Dominican Republic)",
+        edu_2_t:"Certifications", edu_2_1:"• Microsoft MTA — Software Development Fundamentals", edu_2_2:"• Microsoft (edX) — DAT207x: Analyzing & Visualizing Data with Power BI",
+        edu_3_t:"Relevant courses", edu_3_1:"• IBM App Connect Enterprise 12 Application Development (GBM)", edu_3_2:"• Create, Secure & Publish APIs with IBM API Connect 10 (GBM)", edu_3_3:"• ITLA diplomas: Java, Java Web, C#, Oracle",
+        contact_title:"Contact", contact_sub:"If you want to discuss a role or a project, email me.", contact_email:"Email me", contact_copy:"Copy email",
+        label_email:"Email:",
+        available_title:"Available for", available_1:"• Senior/Lead roles focused on backend & integration", available_2:"• Service architecture and middleware modernization", available_3:"• Critical operations and compliance-heavy projects",
+        download_quick:"Quick download", btn_cv:"Download CV",
+        footer_note:"HTML + Tailwind + JS · ES/EN · Light/Dark theme.",
+        theme_dark:"Dark", theme_light:"Light",
+        toast_copied:"Email copied ✔"
+      }
+    };
+
+    function setText(lang){
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        const value = I18N[lang]?.[key];
+        if (typeof value === "string") el.textContent = value;
+      });
+      document.getElementById("langLabel").textContent = lang.toUpperCase();
+      localStorage.setItem("lang", lang);
+
+      const theme = document.documentElement.getAttribute("data-theme") || "dark";
+      document.getElementById("themeLabel").textContent = (theme === "light") ? I18N[lang].theme_light : I18N[lang].theme_dark;
+    }
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener("click", (e) => {
+        const id = a.getAttribute("href");
+        const el = document.querySelector(id);
+        if (!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        const menu = document.getElementById("mobileMenu");
+        if (menu && !menu.classList.contains("hidden")) menu.classList.add("hidden");
+      });
+    });
+
+    // Mobile menu
+    const btnMenu = document.getElementById("btnMenu");
+    const mobileMenu = document.getElementById("mobileMenu");
+    btnMenu?.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
+
+    // Copy email
+    const email = "r.rodriguezreyes@outlook.com";
+    const btnCopy = document.getElementById("btnCopyEmail");
+    const toast = document.getElementById("toast");
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.remove("hidden");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => toast.classList.add("hidden"), 1800);
+    }
+    btnCopy?.addEventListener("click", async () => {
+      const lang = localStorage.getItem("lang") || "es";
+      try {
+        await navigator.clipboard.writeText(email);
+        showToast(I18N[lang].toast_copied);
+      } catch {
+        const ta = document.createElement("textarea");
+        ta.value = email;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+        showToast(I18N[lang].toast_copied);
+      }
+    });
+
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Theme toggle
+    const btnTheme = document.getElementById("btnTheme");
+    const iconMoon = document.getElementById("iconMoon");
+    const iconSun = document.getElementById("iconSun");
+    function applyTheme(theme){
+      document.documentElement.setAttribute("data-theme", theme);
+      const isLight = theme === "light";
+      iconSun.classList.toggle("hidden", !isLight);
+      iconMoon.classList.toggle("hidden", isLight);
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute("content", isLight ? "#ffffff" : "#0b1220");
+      const lang = localStorage.getItem("lang") || "es";
+      document.getElementById("themeLabel").textContent = isLight ? I18N[lang].theme_light : I18N[lang].theme_dark;
+      localStorage.setItem("theme", theme);
+    }
+    const savedTheme = localStorage.getItem("theme");
+    const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    applyTheme(savedTheme || (prefersLight ? "light" : "dark"));
+    btnTheme?.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme") || "dark";
+      applyTheme(current === "light" ? "dark" : "light");
+    });
+
+    // Language toggle
+    const btnLang = document.getElementById("btnLang");
+    const savedLang = localStorage.getItem("lang");
+    setText(savedLang || "es");
+    btnLang?.addEventListener("click", () => {
+      const current = localStorage.getItem("lang") || "es";
+      setText(current === "es" ? "en" : "es");
+    });
+  </script>
+</body>
+</html>
